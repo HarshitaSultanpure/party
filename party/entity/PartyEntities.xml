@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities>
+
+    <!-- PARTY ENTITY -->
+    <entity entity-name="Party" package-name="party">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="partyTypeEnumId" type="id" enum-type="PartyType" not-null="true"/>
+        <field name="createdDate" type="date-time" default="now"/>
+
+        <!-- Enum Relationship -->
+        <relationship type="one" related="moqui.basic.Enumeration">
+            <key-map field-name="partyTypeEnumId" related-field-name="enumId"/>
+        </relationship>
+    </entity>
+
+    <entity entity-name="Person" package-name="party">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="firstName" type="text-short"/>
+        <field name="lastName" type="text-short"/>
+        <field name="dateOfBirth" type="date"/>
+
+        <!-- Relationship to Party -->
+        <relationship type="one" related="party.Party">
+            <key-map field-name="partyId"/>
+        </relationship>
+    </entity>
+
+    <!-- PartyGroup Entity -->
+    <entity entity-name="PartyGroup" package-name="party">
+    <field name="partyId" type="id" is-pk="true"/>
+    <field name="groupName" type="text-medium"/>
+    <field name="description" type="text-long"/>
+
+    <relationship type="one" related="party.Party">
+        <key-map field-name="partyId"/>
+    </relationship>
+
+    </entity>
+
+    <!-- ContactMech Entity -->
+    <entity entity-name="ContactMech" package-name="party">
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="contactMechTypeId" type="id" enum-type="ContactMechType" not-null="true"/>
+        <field name="infoString" type="text-medium"/>
+        <field name="createdDate" type="date-time" default="now"/>
+
+        <relationship type="one" related="moqui.basic.Enumeration">
+            <key-map field-name="contactMechTypeId" related-field-name="enumId"/>
+        </relationship>
+    </entity>
+
+    <!-- PARTY CONTACT MECH -->
+
+    <entity entity-name="PartyContactMech" package-name="party">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="fromDate" type="date-time" is-pk="true"/>
+        <field name="thruDate" type="date-time"/>
+
+        <relationship type="one" related="party.Party">
+            <key-map field-name="partyId"/>
+        </relationship>
+
+        <relationship type="one" related="party.ContactMech">
+            <key-map field-name="contactMechId"/>
+        </relationship>
+    </entity>
+
+</entities>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml>
+
+    <!-- PARTIES -->
+    <Party partyId="P1" partyTypeEnumId="PERSON"/>
+    <Party partyId="G1" partyTypeEnumId="PARTY_GROUP"/>
+
+    <!-- PERSON -->
+    <Person partyId="P1" firstName="John" lastName="Doe" dateOfBirth="1998-05-10"/>
+
+    <!-- PARTY GROUP -->
+    <PartyGroup partyId="G1" groupName="HotWax Systems" description="Retail Solutions Company"/>
+
+    <!-- CONTACT MECHANISMS -->
+    <ContactMech contactMechId="CM1" contactMechTypeId="EMAIL" infoString="john@example.com"/>
+    <ContactMech contactMechId="CM2" contactMechTypeId="TELECOM_NUMBER" infoString="9876543210"/>
+
+    <!-- PARTY CONTACT MECH (RELATION) -->
+    <PartyContactMech partyId="P1" contactMechId="CM1" fromDate="2024-01-01T00:00:00"/>
+    <PartyContactMech partyId="P1" contactMechId="CM2" fromDate="2024-01-01T00:00:00"/>
+
+</entity-facade-xml>
