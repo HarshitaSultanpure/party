@@ -7,7 +7,9 @@
     </transition>
 
     <actions>
-        <entity-find entity-name="party.Party" list="partyList"/>
+        <entity-find entity-name="party.Party" list="partyList">
+            <search-form-inputs/>
+        </entity-find>
     </actions>
 
     <widgets>
@@ -21,15 +23,10 @@
 
         <label type="h1" text="Party List"/>
 
-        <section-iterate list="partyList" entry="party">
-            <widgets>
-                <container>
-                    <label text="[ Party ID: ${party.partyId} | Party Type: ${party.partyTypeEnumId} ]"/>
-                </container>
-            </widgets>
+        <form-list name="PartyList" list="partyList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="party.Party" field-type="display"/>
 
-        </section-iterate>
-
+        </form-list>
     </widgets>
 
 </screen>
