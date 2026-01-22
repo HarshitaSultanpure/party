@@ -2,9 +2,16 @@
 
 ## About the Assignment  
 In this assignment, I created a custom Party module in Moqui.  
-The main goal was to understand how entities, enums, relationships, and UI forms work in Moqui.
+The main goal was to understand how entities, enums, relationships, services, REST APIs and UI forms work together in Moqui.
 
+The main goal was to learn:
 
+* Entity modeling
+* Service creation
+* Business logic using Groovy
+* REST API exposure
+* UI form integration
+  
 ## What I Implemented  
 
 I created the following entities:
@@ -38,9 +45,7 @@ This helped verify that the entities and relationships are working properly.
 
 I implemented a **Create Party form** in the Moqui UI using XML Screens.
 
-### Add Create Form
-
-In `PartyScreen.xml`, I added:
+### Features:
 
 - A **transition** to call the `create#party.Party` service  
 - A **container-dialog** to open the form  
@@ -51,16 +56,92 @@ In `PartyScreen.xml`, I added:
 
 This allows users to create new Party records directly from the UI.
 
+## Create a Custom Person Creation Service in Moqui
+
+I implemented a custom service to create **Person** records with proper validation and business logic.
+
+
+### Service Definition (XML)
+
+**Service name:**  
+`party.create#Person`
+
+### Required inputs:
+- `partyId`
+- `firstName`
+- `lastName`
+
+### Optional input:
+- `dateOfBirth`
+
+### Output:
+- `responseMessage`
+
+
+## Business Logic (Groovy)
+
+The Groovy script performs:
+
+- Validation of required fields  
+- Verification that the Party exists  
+- Creation of the Person record  
+- Safe handling of extra parameters  
+- Setting the response message in the service context  
+
+### Example Response
+```
+Person Harshita Sultanpure created successfully!
+```
+
+
+## Exposing the Service as a REST API
+
+I exposed the Person creation service as a REST API using a `.rest.xml` file.
+
+### REST Configuration
+
+**Endpoint:**
+
+``` POST /rest/s1/party/person ```
+
+**Service mapped:**
+```
+party.create#Person
+```
+
+### Example Request (JSON)
+
+```json
+{
+  "partyId": "P100",
+  "firstName": "Harshita",
+  "lastName": "Sultanpure"
+}
+```
+### Example Response
+```
+{
+  "responseMessage": "Person Harshita Sultanpure created successfully!"
+}
+```
+This allows external systems to create Person records using HTTP.
+
+
 ## Testing in Moqui UI  
 
-The Moqui application was started and the Party screen was accessed via the configured URL.  
-New Party records were added using the Create Party form and the records were verified in the Party list.
+### Moqui UI Tools
 
-The Moqui application was run and the **Entity Tools** section was used to:
+- Verified entities
+- Checked relationships
+- Loaded sample data
 
-- Check that all entities were listed correctly  
-- Verify the entity fields and relationships  
-- Add sample data using the **Data Import** tool  
+### Service Tools
+
+- Tested party.create#Person service
+- Verified validation and response handling
+### REST API
+- Tested POST requests using Postman
+- Confirmed successful Person creation
 
 This helped confirm that the entities were properly defined and working as expected.
 
@@ -68,12 +149,14 @@ This helped confirm that the entities were properly defined and working as expec
 ## Conclusion  
 
 This assignment helped in understanding how to:
-- Design custom entities in Moqui  
-- Use enums and relationships  
-- Load seed data
-- Build UI forms using XML Screens
-- Call Services using transitions
-- Manage code using Git
+- Custom entity design in Moqui
+- Enum usage for data consistency
+- Seed data loading
+- XML Screen UI development
+- Service creation with Groovy logic
+- REST API exposure
+- Debugging Moqui runtime issues
+- Managing code with Git
 
 
 
